@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1150</width>
-    <height>785</height>
+    <height>800</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1150</width>
-    <height>0</height>
+    <height>800</height>
    </size>
   </property>
   <property name="cursor">
@@ -29,11 +29,20 @@
    <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>750</width>
+     <height>650</height>
+    </size>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="9,1">
       <property name="spacing">
        <number>2</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
       </property>
       <property name="leftMargin">
        <number>2</number>
@@ -55,25 +64,16 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetNoConstraint</enum>
         </property>
-        <item>
-         <widget class="QOpenGLWidget" name="CamFeed">
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QLabel" name="Webcam">
           <property name="minimumSize">
            <size>
-            <width>0</width>
-            <height>50</height>
+            <width>640</width>
+            <height>480</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>9999999</height>
-           </size>
-          </property>
-          <property name="sizeIncrement">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>
@@ -362,22 +362,34 @@ background-color: rgb(0, 0, 127);</string>
            </item>
            <item>
             <widget class="QWidget" name="gridWidget" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>240</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>240</height>
+              </size>
+             </property>
              <property name="styleSheet">
               <string notr="true"/>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="2" column="2">
+              <item row="2" column="3">
                <widget class="QPushButton" name="Forwards">
                 <property name="minimumSize">
                  <size>
-                  <width>75</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>45</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                 <property name="cursor">
@@ -392,18 +404,44 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="3">
-               <widget class="QPushButton" name="Right">
+              <item row="4" column="3">
+               <widget class="QPushButton" name="Backwards">
                 <property name="minimumSize">
                  <size>
-                  <width>75</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>45</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:white;
+font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>↓</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="4" alignment="Qt::AlignHCenter|Qt::AlignTop">
+               <widget class="QPushButton" name="Right">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                 <property name="cursor">
@@ -418,7 +456,7 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="2">
+              <item row="3" column="3" alignment="Qt::AlignHCenter">
                <widget class="QProgressBar" name="Speed">
                 <property name="minimumSize">
                  <size>
@@ -437,29 +475,33 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="2">
-               <widget class="QPushButton" name="Backwards">
+              <item row="5" column="1" colspan="4">
+               <widget class="QPushButton" name="Stop">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(170, 0, 0);
+color:rgb(255, 255, 255)</string>
+                </property>
+                <property name="text">
+                 <string>EMERGENCY STOP</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QCommandLinkButton" name="M2A">
                 <property name="minimumSize">
                  <size>
-                  <width>75</width>
-                  <height>50</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>45</width>
-                  <height>50</height>
+                  <width>212</width>
+                  <height>0</height>
                  </size>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true">color:white;
-font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
-                </property>
                 <property name="text">
-                 <string>↓</string>
+                 <string>Switch To Autonomous</string>
                 </property>
                </widget>
               </item>
@@ -467,14 +509,14 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
                <widget class="QPushButton" name="Left">
                 <property name="minimumSize">
                  <size>
-                  <width>75</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>45</width>
-                  <height>50</height>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                 <property name="cursor">
@@ -489,21 +531,7 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1" colspan="3">
-               <widget class="QPushButton" name="Stop">
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(170, 0, 0);
-color:rgb(255, 255, 255)</string>
-                </property>
-                <property name="text">
-                 <string>EMERGENCY STOP</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
+              <item row="2" column="0">
                <widget class="QLabel" name="Logo">
                 <property name="minimumSize">
                  <size>
@@ -528,22 +556,6 @@ color:rgb(255, 255, 255)</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QCommandLinkButton" name="M2A">
-                <property name="minimumSize">
-                 <size>
-                  <width>212</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="text">
-                 <string>Switch To Autonomous</string>
                 </property>
                </widget>
               </item>

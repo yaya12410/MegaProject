@@ -1,9 +1,14 @@
+import sys
 from PyQt5.uic import loadUi
 from MegaProj1 import Ui_MainWindow
 from FirstScreen import Ui_FirstScreen
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from Auto import Ui_Atonomous
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
+import cv2
 #The Manual Control screen class:
 class ControlWindow(QMainWindow):
     def __init__(self):
@@ -25,6 +30,12 @@ class ControlWindow(QMainWindow):
         #On clicking the "Switch to Auto" button it calls the switchAuto function.
         self.control.M2A.clicked.connect(self.switchAuto)
         self.control.M2A.clicked.connect(self.closingManual)
+        self.MyWebCam1 = MyWebcam()
+        self.MyWebCam1.start()
+        self.MyWebCam1.LiveCam.connect(self.LiveFeedSlot)
+    def LiveFeedSlot(self, Image):
+        print(22)
+        self.control.Webcam.setPixmap(QPixmap.fromImage(Image))
     #Switching modes from Manual to Auto whilst being in Manual Control window.
     def switchAuto(self):
         self.windowAuto = AutoScreen()
@@ -66,16 +77,22 @@ class AutoScreen(QMainWindow):
         self.autoPilot.A2M.clicked.connect(self.closingAuto)
         self.autoPilot.Speed.setValue((200//3))
         self.autoPilot.Stop.clicked.connect(self.Stop)
-        self.autoPilot.Distance.textChanged.connect(self.setDistance)
+        self.autoPilot.Distance.valueChanged.connect(self.setDistance)
+        self.MyWebCam2 = MyWebcam()
+        self.MyWebCam2.start()
+        self.MyWebCam2.LiveCam.connect(self.LiveFeedSlot2)
+    def LiveFeedSlot2(self, Image):
+        self.autoPilot.Webcam2.setPixmap(QPixmap.fromImage(Image))
         #self.autoPilot.Screenshot.clicked.connect(self.SS)
     def setDistance(self):
-        self.myText = self.autoPilot.Distance.toPlainText()
-        return int(self.myText)
+        return self.autoPilot.Distance.value()
     def Stop(self):
         self.autoPilot.Speed.setValue(0)
+        return 0
     def switchManual(self):
         self.windowManual = ControlWindow()
         self.windowManual.show()
+        return 99
     def closingAuto(self):
         self.hide()
 
@@ -95,6 +112,22 @@ class firstScreen(QMainWindow):
         self.windowAuto = AutoScreen()
         mainWindow.hide()
         self.windowAuto.show()
+class MyWebcam(QThread):
+    LiveCam = pyqtSignal(QImage)
+    def run(self):
+        self.ThreadActive = True
+        FeedCam = cv2.VideoCapture(0)
+        while self.ThreadActive:
+            ret, frame = FeedCam.read()
+            if ret:
+                Image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                FlippedImage = cv2.flip(Image, 1)
+                ConvertToQtFormat = QImage(FlippedImage.data, FlippedImage.shape[1], FlippedImage.shape[0], QImage.Format_RGB888)
+                Live = ConvertToQtFormat.scaled(1150, 701, Qt.KeepAspectRatio)
+                self.LiveCam.emit(Live)
+
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
